@@ -1,6 +1,6 @@
 %Fibonacci
-function [F] ufrgs_fibonacci(x)
-for i=3:x;
+function [F] = ufrgs_fibonacci(i)
+for i=3:i
     F(1) = 1;
     F(2) = 1;
     F(i) = F(i-1) + F(i-2);
