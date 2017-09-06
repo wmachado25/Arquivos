@@ -1,4 +1,4 @@
-%Fibonacci
+%Fibonacci - William Machado
 function [F] = ufrgs_fibonacci(i)
 for i=3:i
     F(1) = 1;
