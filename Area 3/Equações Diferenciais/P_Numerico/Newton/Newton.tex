@@ -1,0 +1,111 @@
+\documentclass[12pt,a4paper]{article}%
+\usepackage{amsmath,amsfonts,amstext,amsthm}%
+\usepackage{pstricks,pst-plot}%
+\usepackage[dvips]{graphicx}%
+\usepackage[brazil]{babel}%
+\usepackage[latin1]{inputenc}%
+\usepackage{indentfirst}
+
+\usepackage{enumerate}
+
+\pagestyle{empty}%
+
+\setlength{\topmargin}{-2.5cm} 
+\setlength{\oddsidemargin}{-1cm} %%% top margin -3
+\setlength{\evensidemargin}{1cm} 
+\setlength{\textheight}{27cm}
+\setlength{\textwidth}{18cm}
+
+\newcommand{\comando}[1]{{\Large #1} \\ \noindent\rule {17.9cm}{0.05cm}}
+\newcommand{\parte}[1]{\vspace{1cm}{\large #1} \\ \noindent\rule {17.9cm}{0.05cm}}
+
+
+\begin{document}
+
+
+\comando{newton}
+
+Método de Newton
+
+\parte{Sintaxe}
+
+\texttt{[x]=newton(f,xi,N,h)}
+
+Entradas:
+
+\begin{itemize}
+\item \texttt{f} é uma função de $x$ no $\mathbb{R}^{n}$;
+\item \text{xi} é o valor inicial de $x$ no $\mathbb{R}^{n}$;
+\item \texttt{N} é o número de iterações;
+\item \texttt{h} é o tamanho do passo para calcular o próximo ponto.
+\end{itemize}
+
+Saída:
+
+\begin{itemize}
+\item \texttt{x} é o valor de $x$, no $\mathbb{R}^{n}$, da solução numérica simulada.
+\end{itemize}
+
+
+\parte{Descrição}
+
+O método de Newton tem como objetivo determinar valores aproximados para as raízes de funções ou sistemas (lineares e não-lineares), através de iterações sucessivas. Utiliza-se a aproximação da função por série de Taylor, tomando até a derivada de primeira ordem. Quando aplicado a sistemas, é necessário utilizar a matriz Jacobiana (vide manual Jacobiana), que é composta pelas derivadas parciais de primeira ordem de cada uma das equações, em relação a cada uma das variáveis.
+
+No caso de funções de uma variável, pode-se utilizar a interpretação geométrica para visualizar o funcionamento do método. Dado um valor de $x=x_{n}$, o próximo valor $x_{n+1}$ será calculado através da intersecção da reta tangente ao gráfico de $f(x)$ em $x_{n}$ com o eixo $x$. A equação da reta tangente à $f(x)$ em $x_n$ é:
+
+\begin{eqnarray*}
+y_{n+1}-y_n=m_{tg}(x_{n+1}-x_n)\\
+y_{n+1}-f(x_{n})=f'(x_{n})(x_{n+1}-x_n)
+\end{eqnarray*}
+
+Como o valor de $x_{n+1}$ pretendido é onde a reta tangente intercepta o eixo $x$, toma-se $y_{n+1}=0$:
+
+\begin{eqnarray*}
+0-f(x_{n})=f'(x_{n})(x_{n+1}-x_n)
+\end{eqnarray*}
+
+Assim, obtém-se a iteração que rege o método:
+
+\begin{eqnarray*}
+x_{n+1}=x_n-\frac{f(x_n)}{f'(x_n)}
+\end{eqnarray*}
+
+A convergência do método é garantida para um certo intervalo que contenha a raiz procurada. O número de pontos a serem calculados será o número de iterações que o método irá realizar.
+
+Funções e condições iniciais no espaço $\mathbb{R}^{n}$, com $n\geq 2$, devem ser declaradas como vetores linha e coluna, respectivamente.
+
+\newpage
+\parte{Exemplo 1 - em $\mathbb{R}$}
+
+\begin{verbatim}
+clc
+clear all
+f1=@(x) x^3+x^2-21*x-45;
+xi1=8;
+N1=10;
+h1=0.01;
+
+[x1]=newton(f1,xi1,N1,h1)
+
+\end{verbatim}
+
+\parte{Exemplo 2 - em $\mathbb{R}^{4}$}
+
+\begin{verbatim}
+clc
+clear all
+f2=@(x) [ x(1)*x(3)/(1+x(3))-0.5*x(1)
+          x(2)*x(4)/(1+x(4))-0.5*x(2)
+          -x(1)*x(3)/(1+x(3))+1
+          -x(2)*x(4)/(1+x(4))+x(1)*x(3)/(1+x(3)) ]';
+					
+xi2=[30 90 30 3]';
+N2=30;
+h2=0.01;
+
+[x2]=newton(f2,xi2,N2,h2)
+
+\end{verbatim}
+
+
+\end{document}

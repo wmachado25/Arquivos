@@ -1,0 +1,84 @@
+\documentclass[12pt,a4paper]{article}%
+\usepackage{amsmath,amsfonts,amstext,amsthm}%
+\usepackage{pstricks,pst-plot}%
+\usepackage[dvips]{graphicx}%
+\usepackage[brazil]{babel}%
+\usepackage[utf8]{inputenc}%
+
+\usepackage{enumerate}
+
+\pagestyle{empty}%
+
+\setlength{\topmargin}{-2.5cm} 
+\setlength{\oddsidemargin}{-1cm} %%% top margin -3
+\setlength{\evensidemargin}{1cm} 
+\setlength{\textheight}{27cm}
+\setlength{\textwidth}{18cm}
+
+\newcommand{\comando}[1]{{\Large #1} \\ \noindent\rule {17.9cm}{0.05cm}}
+\newcommand{\parte}[1]{\vspace{1cm}{\large #1} \\ \noindent\rule {17.9cm}{0.05cm}}
+
+
+\begin{document}
+
+
+\comando{jacobiana}
+
+Jacobiana de uma função
+
+\parte{Sintaxe}
+
+\texttt{[J]=jacobiana(f,x,h)}\\
+
+Entradas:
+
+\begin{itemize}
+\item \texttt{f} é a função a qual deseja-se calcular a matriz jacobiana;
+\item \text{x} é o ponto no qual a jacobiana será computada;
+\item \text{h} é o tamanho do passo para calcular a próxima iteração.
+%\item \texttt{h} é o extremo superior do intervalo   
+%\item \texttt{N} é o número de iterações 
+\end{itemize}
+
+Saída:
+
+\begin{itemize}
+\item \texttt{[J]} é a aproximação da jacobiana de $f$ no ponto $x$. 
+\end{itemize}
+
+
+\parte{Descrição}
+
+\texttt{[J]=jacobiana(f,x,h)} retorna a jacobiana
+\begin{center}
+$J=%
+\begin{bmatrix}
+\frac{\partial f_{1}}{\partial x_{1}} & \frac{\partial f_{1}}{\partial x_{2}}
+& \cdots  & \frac{\partial f_{1}}{\partial x_{n}} \\ 
+\frac{\partial f_{2}}{\partial x_{1}} & \frac{\partial f_{2}}{\partial x_{2}}
+& \cdots  & \frac{\partial f_{2}}{\partial x_{n}} \\ 
+\vdots  & \vdots  & \ddots  & \vdots  \\ 
+\frac{\partial f_{m}}{\partial x_{1}} & \frac{\partial f_{m}}{\partial x_{2}}
+& \cdots  & \frac{\partial f_{m}}{\partial x_{n}}%
+\end{bmatrix}%
+$
+\end{center}
+da função $f:\mathbb{R}^{n} \rightarrow \mathbb{R}^{m}$, calculada no ponto $x \in \mathbb{R}^{n}$, usando diferenças centrais para a aproximação da derivada. As entradas $f$ e $x$ devem ser declaradas como vetores coluna.
+
+\parte{Exemplo}
+
+\begin{verbatim}
+
+f = @(x) [2*x(1)*x(2);x(2)*cos(x(1));sin(x(1))];
+x=[pi/2;1];
+
+J=jacobiana(f,x,0.01)
+
+J =
+
+    2.0000    3.1416
+   -1.0000    0.0000
+         0         0
+\end{verbatim}
+
+\end{document}

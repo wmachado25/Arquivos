@@ -1,0 +1,87 @@
+\documentclass[12pt,a4paper]{article}%
+\usepackage{amsmath,amsfonts,amstext,amsthm}%
+\usepackage{pstricks,pst-plot}%
+\usepackage[dvips]{graphicx}%
+\usepackage[brazil]{babel}%
+\usepackage[utf8]{inputenc}%
+
+\usepackage{enumerate}
+
+\pagestyle{empty}%
+
+\setlength{\topmargin}{-2.5cm} 
+\setlength{\oddsidemargin}{-1cm} %%% top margin -3
+\setlength{\evensidemargin}{1cm} 
+\setlength{\textheight}{27cm}
+\setlength{\textwidth}{18cm}
+
+\newcommand{\comando}[1]{{\Large #1} \\ \noindent\rule {17.9cm}{0.05cm}}
+\newcommand{\parte}[1]{\vspace{1cm}{\large #1} \\ \noindent\rule {17.9cm}{0.05cm}}
+
+
+\begin{document}
+
+
+\comando{Met\'odo de Euler}
+
+Método de Euler Implícito
+
+\parte{Sintaxe}
+
+\texttt{[y,t] = EulerImp(f,y0,N,h)}\\
+
+Entrada:
+
+\begin{itemize}
+\item \texttt{f} é a função que está associada a derivada de \texttt{y}
+\item \texttt{$y_{0}$} é a condição inicial da EDO     
+\item \texttt{N} é o número de iterações 
+\item \texttt{h} é um número fixo associado ao metódo de Newton.
+\end{itemize}
+
+Saída:
+
+\begin{itemize}
+\item \texttt{[y,t]} é a solução aproximada da EDO ($\ref{a}$) após $N$ interações. 
+\end{itemize}
+
+
+\parte{Descrição}
+
+Considere a seguinte EDO:
+\begin{align}
+\begin{cases}
+y'(t) = f(y(t),t),\\
+y(t_{0}) = y_{0},
+\end{cases}
+\label{a}
+\end{align}
+Inicialmente temos que determinar quem é a função $f(y(t),t)$, usando diferenças regressivas para estimar a derivada $y'(t)$ e isolando o termo $y(t+h)$  temos que
+\[y(t+h)=y(t)+hf(y(t+h),t+h),\]
+no algoritmo vamos representar essa equação por
+\[ G=@(x) \ x-f(x,t)*h-yi.\]
+Após identificarmos a função $f(y(t),t)$ e a condição inicial $y(:,1)=y(t_{0})$, o algoritmo vai substituir os valores na equação acima , obtendo dessa forma 
+\[ G=@(x) \ x-f(x,t)*h-y_{1}, \ \ \mbox{onde} \ \ t=t_{0}+h\]
+em seguida vamos usar o Metódo de Newton para calcular sua solução, que será dada por:
+\[y(:,2)=newton(G,y_{1},N,h)}.\]
+O processor será feita $N$ vezes, dessa forma o algoritmo vai determinar uma solução $y(:,N+1)$ aproximada para a EDO ($\ref{a}$) após $N$ iterações.
+
+
+
+
+
+\parte{Exemplos}
+
+
+%\begin{verbatim}
+\textbf{Exemplo 1.} Considere o problema apresentado em ($\ref{a}$), e tome $f(y(t),t) = -2y(t)$, com condição inicial $y(0) = 1$.\\
+
+
+\textbf{Exemplo 2.}  Considere o problema apresentado em ($\ref{a}$), e tome $f(y(t),t) = y(t)(1-y(t))$, com condição inicial $y(0) = 1/2$.\\
+
+
+
+
+%\end{verbatim}
+
+\end{document}
